@@ -30,13 +30,18 @@ def page(url,title,desc,body,ld=''):
     p=O+url;os.makedirs(p,exist_ok=True);open(p+'index.html','w',encoding='utf-8').write(h)
 shutil.rmtree(O,ignore_errors=True);os.makedirs(O)
 shutil.copytree('admin',O+'/admin')
+if os.path.isdir('static/img'):shutil.copytree('static/img',O+'/img')
 ld='<script type="application/ld+json">'+json.dumps({"@context":"https://schema.org","@type":"LocalBusiness","name":D['name'],"telephone":tel,"url":U,"priceRange":"800-6000 TL","address":{"@type":"PostalAddress","addressRegion":"İzmir","addressCountry":"TR"},"areaServed":[{"@type":"AdministrativeArea","name":d['name']+', İzmir'} for d in D['districts']],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":D['opens'],"closes":D['closes']}]},ensure_ascii=False)+'</script>'
 hero=lambda h,p,extra='':f'<section class="hero"><div class="w hg"><div><h1>{h}</h1><p class="lead">{p}</p>{cta()}{extra}</div><div class="art">{WIN}</div></div></section>'
 trust='<ul class="trust"><li>Ücretsiz keşif sözü vermiyoruz; fiyatı baştan açık söylüyoruz</li><li>Net fiyat aralığı</li><li>Yerinde servis</li></ul>'
 trust='<ul class="trust"><li>Net fiyat aralığı</li><li>Yerinde servis</li><li>Görünür çalışma saatleri</li></ul>'
 ba='<div class="grid2"><div class="ph">Önce fotoğrafı<br>(yer tutucu)</div><div class="ph">Sonra fotoğrafı<br>(yer tutucu)</div></div>'
+def gal():
+    G=D.get('gallery') or []
+    if not G:return ba
+    return '<div class="gl">'+''.join(f'<figure class="gi"><div class="grid2"><div><img src="{e(g["before"])}" alt="{e(g.get("title",""))} önce" loading="lazy"><span class="lb">Önce</span></div><div><img src="{e(g["after"])}" alt="{e(g.get("title",""))} sonra" loading="lazy"><span class="lb">Sonra</span></div></div><figcaption>{e(g.get("title",""))}</figcaption></figure>' for g in G)+'</div>'
 page('/','İzmir Pimapen Tamiri ve PVC Kapı-Pencere Servisi | '+D['name'],'İzmir’de pimapen tamiri, montajı, sineklik ve cam balkon servisi. Net fiyat aralığı, yerinde servis. Hemen arayın veya WhatsApp’tan teklif isteyin.',
- hero('İzmir Pimapen Tamiri ve PVC Kapı-Pencere Servisi','Menteşe, kol, kilit ve conta arızalarında yerinde onarım. Fiyatı baştan söyleriz.',trust)+sec('Hizmetlerimiz',cards())+sec('Başlangıç fiyatları',prices(),'alt')+sec('Hizmet verdiğimiz ilçeler',tags())+sec('Önce / sonra',ba,'alt')+sec('Sık sorulan sorular',faq(3)+'<p><a href="/sss/">Tüm soruları gör</a></p>'),ld)
+ hero('İzmir Pimapen Tamiri ve PVC Kapı-Pencere Servisi','Menteşe, kol, kilit ve conta arızalarında yerinde onarım. Fiyatı baştan söyleriz.',trust)+sec('Hizmetlerimiz',cards())+sec('Başlangıç fiyatları',prices(),'alt')+sec('Hizmet verdiğimiz ilçeler',tags())+sec('Önce / sonra',gal(),'alt')+sec('Sık sorulan sorular',faq(3)+'<p><a href="/sss/">Tüm soruları gör</a></p>'),ld)
 page('/hizmetler/','Hizmetler: Pimapen Tamiri, Montaj, Sineklik, Cam Balkon | '+D['name'],'Pimapen tamiri, montajı, sineklik, cam balkon ve PVC kapı işleri: ne yapıldığı ve ne zaman gerektiği.',
  sec('Hizmetler',''.join(f'<article id="{slug(s["title"])}" class="card big">{ic(s["icon"])}<h3>{e(s["title"])}</h3><p><b>Ne yapılır:</b> {e(s["desc"])}</p><p><b>Ne zaman gerekir:</b> {e(s["when"])}</p></article>' for s in D['services'])+cta()))
 page('/fiyatlar/','Pimapen Tamir Fiyatları | '+D['name'],'Pimapen tamiri, menteşe, kol, kilit, conta ve sineklik için başlangıç fiyatları. Kesin ücret yerinde belirlenir.',sec('Başlangıç fiyatları',prices()+cta()))
@@ -50,5 +55,6 @@ for d in D['districts']:
      hero(f'{n} Pimapen Tamiri',f'{n}’de PVC kapı-pencere arızalarına yerinde servis.')+sec(f'{n} için not',f'<p class="note">{e(d["note"])}</p>')+sec('Yaptığımız işler','<ul class="list">'+''.join(f'<li>{e(x["title"])}: {e(x["desc"])}</li>' for x in D['services'])+'</ul>'+cta(),'alt')+sec('Diğer ilçeler',tags()))
 open(O+'/sitemap.xml','w').write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{U}{u}</loc></url>' for u in pages)+'</urlset>')
 open(O+'/robots.txt','w').write(f'User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: {U}/sitemap.xml\n')
-open(O+'/style.css','w').write(open('style.css').read())
+X='.gi{margin:0 0 24px}.gi img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block}.gi .grid2>div{position:relative}.lb{position:absolute;left:10px;top:10px;background:var(--hd);color:#fff;padding:2px 10px;border-radius:99px;font-size:14px}.gi figcaption{margin-top:8px;color:var(--mut);font-size:15px}'
+open(O+'/style.css','w').write(open('style.css').read()+X)
 print(len(pages),'sayfa')
