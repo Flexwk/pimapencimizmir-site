@@ -123,6 +123,11 @@
       "title": "İşlerimiz",
       "before": "/img/pic6.jpeg",
       "after": "/img/picc1.jpeg"
+    },
+    {
+      "title": "Çalışmalarımız",
+      "before": "/img/pic-5.jpeg",
+      "after": "/img/pic3.jpeg"
     }
   ],
   "faq": [
