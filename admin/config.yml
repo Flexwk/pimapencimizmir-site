@@ -1,0 +1,48 @@
+local_backend: true
+backend:
+  name: github
+  repo: Flexwk/pimapencimizmir-site  # kendi GitHub deponuz
+  branch: main
+locale: tr
+media_folder: static/img
+publish_mode: simple
+collections:
+  - name: ayarlar
+    label: Site Bilgileri
+    files:
+      - name: site
+        label: Tüm bilgiler
+        file: data/site.json
+        fields:
+          - {name: name, label: İşletme adı}
+          - {name: phone, label: Telefon / WhatsApp}
+          - {name: site_url, label: Site adresi (https://...)}
+          - {name: hours_text, label: Çalışma saatleri (yazı)}
+          - {name: opens, label: Açılış (08:00)}
+          - {name: closes, label: Kapanış (19:00)}
+          - name: services
+            label: Hizmetler
+            widget: list
+            fields:
+              - {name: title, label: Başlık}
+              - {name: icon, label: "İkon (wrench, window, mesh, balcony, door)"}
+              - {name: desc, label: Ne yapılır, widget: text}
+              - {name: when, label: Ne zaman gerekir, widget: text}
+          - name: prices
+            label: Fiyatlar
+            widget: list
+            fields:
+              - {name: label, label: İş}
+              - {name: price, label: Fiyat}
+          - name: districts
+            label: İlçeler ve özel notları
+            widget: list
+            fields:
+              - {name: name, label: İlçe}
+              - {name: note, label: Bu ilçeye özel not, widget: text}
+          - name: faq
+            label: SSS
+            widget: list
+            fields:
+              - {name: q, label: Soru}
+              - {name: a, label: Cevap, widget: text}

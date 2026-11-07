@@ -1,0 +1,33 @@
+{
+"name":"SAMET Pimapen Servisi","phone":"0538 570 65 17","site_url":"https://pimapencimizmir.com",
+"hours_text":"Hafta içi ve Cumartesi 08:00-19:00","opens":"08:00","closes":"19:00",
+"services":[
+{"title":"Pimapen Tamiri","icon":"wrench","desc":"Menteşe, kol, kilit ve conta arızalarında yerinde onarım.","when":"Pencere zor kapanıyorsa, kol dönmüyorsa, hava veya su sızdırıyorsa ya da kilit tutmuyorsa."},
+{"title":"Pimapen Montajı","icon":"window","desc":"Ölçü alınarak yeni pencere ve kapı sistemi montajı.","when":"Eski doğramalar yenilenecekse, yeni bir bölme veya balkon kapısı eklenecekse."},
+{"title":"Sineklik","icon":"mesh","desc":"Özel ölçü sürgülü, menteşeli ve pileli sineklik imalatı ve tamiri.","when":"Tül yırtıldığında, sineklik rayından çıktığında veya yeni pencereye sineklik gerektiğinde."},
+{"title":"Cam Balkon","icon":"balcony","desc":"Katlanır ve sürme sistemlerde tamir ve mekanizma bakımı.","when":"Camlar zor sürülüyor, tekerlekler ses yapıyor veya paneller hizadan çıkıyorsa."},
+{"title":"PVC Kapı","icon":"door","desc":"Balkon ve giriş kapılarında kilit, menteşe ve kol işleri.","when":"Kapı sarkıyor, kilit dönmüyor veya kapı kasaya sürtüyorsa."}],
+"prices":[
+{"label":"Keşif + küçük ayar","price":"800-1.200 TL"},
+{"label":"Menteşe, kol veya kilit değişimi","price":"1.200-2.500 TL"},
+{"label":"Conta değişimi (pencere başı)","price":"1.000-2.000 TL"},
+{"label":"Sineklik tülü (m²)","price":"500-700 TL"},
+{"label":"Komple tamir (birden fazla pencere)","price":"3.000-6.000 TL"}],
+"districts":[
+{"name":"Karabağlar","note":"İlçede 1990-2000'lerden kalma apartmanlar çok; bu yaşta doğramalarda kol mekanizması gevşemesi ve conta sertleşmesi sık görülür. Bölge bize yakın olduğu için keşif randevusu genelde çabuk ayarlanır."},
+{"name":"Buca","note":"Yamaçtaki apartman ve eski sitelerde üst kat pencereleri rüzgâr alır; menteşe yorulması ve kapanma sorunu yaygındır. Dar sokaklı mahallelerde park yeri için randevuda adres tarifi istiyoruz."},
+{"name":"Bornova","note":"Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."},
+{"name":"Konak","note":"Eski ve asansörsüz binalar çok. Montaj veya sineklik için uzun profil taşınacaksa randevuda kat ve merdiven bilgisini paylaşın, ekipmanı ona göre hazırlayalım."},
+{"name":"Karşıyaka","note":"Deniz kenarındaki tuzlu nem metal aksamı ve contaları daha hızlı yıpratır. Cam balkon ve balkon kapılarında yılda bir mekanizma bakımı önerilir."},
+{"name":"Bayraklı","note":"Yüksek katlı yeni sitelerde güçlü rüzgâr cam balkon ve sürme sistemleri zorlar. Raylarda ve sürgülerde ayar, bu bölgede en sık yaptığımız işlerden biridir."},
+{"name":"Çiğli","note":"Yeni sitelerin yanı sıra sanayiye yakın mahallelerde toz ve kir raylarda birikir; sürme sistemlerde temizlik ve yağlama çoğu zaman tek başına sorunu çözer."},
+{"name":"Gaziemir","note":"Uçak sesinden rahatsız olan evlerde sorun çoğu zaman aşınmış contadır. Conta değişimi ve kapanma ayarıyla ses ve hava yalıtımı gözle görülür iyileşebilir."}],
+"faq":[
+{"q":"Fiyat nasıl belirlenir?","a":"Arızanın türüne, parça ihtiyacına ve pencere sayısına göre belirlenir. Sitedeki fiyatlar başlangıç aralığıdır; kesin ücreti yerinde bakıp söyleriz."},
+{"q":"Keşif ücretli mi?","a":"Keşif ve küçük ayar 800-1.200 TL aralığındadır. Onarım yaptırırsanız keşif ücreti işin içinde değerlendirilir; bunu randevuda netleştiriyoruz."},
+{"q":"Aynı gün gelir misiniz?","a":"Takvim uygunsa aynı gün veya ertesi gün gelmeye çalışırız. Kesin saat için arayın, ekip yoğunluğuna göre net bir zaman söyleriz."},
+{"q":"Garanti veriyor musunuz?","a":"Yaptığımız işçilik ve değiştirdiğimiz parça için garanti süresini işe başlamadan önce yazılı veya mesajla bildiriyoruz."},
+{"q":"Hangi ilçelere hizmet veriyorsunuz?","a":"Karabağlar, Buca, Bornova, Konak, Karşıyaka, Bayraklı, Çiğli ve Gaziemir. Başka bir ilçeden iseniz arayıp sorabilirsiniz."},
+{"q":"Parça sizde var mı?","a":"Yaygın menteşe, kol, kilit ve contalar genellikle yanımızda olur. Özel parça gerekirse keşifte söyler, temin edip ikinci ziyarette takarız."},
+{"q":"Çalışma saatleriniz nedir?","a":"Hafta içi ve Cumartesi 08:00-19:00. Pazar günü randevu almıyoruz."}]
+}
