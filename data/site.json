@@ -31,6 +31,10 @@
     {
       "name": "Gaziemir",
       "note": "Uçak sesinden rahatsız olan evlerde sorun çoğu zaman aşınmış contadır. Conta değişimi ve kapanma ayarıyla ses ve hava yalıtımı gözle görülür iyileşebilir."
+    },
+    {
+      "name": "Çeşme",
+      "note": "Conta değişimi ve kapanma ayarıyla ses ve hava yalıtımı gözle görülür iyileşebilir."
     }
   ],
   "opens": "08:00",
