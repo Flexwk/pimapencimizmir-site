@@ -118,6 +118,13 @@
   ],
   "name": "Pimapen Servisi",
   "phone": "0538 570 65 17",
+  "gallery": [
+    {
+      "title": "İşlerimiz",
+      "before": "/img/pic6.jpeg",
+      "after": "/img/picc1.jpeg"
+    }
+  ],
   "faq": [
     {
       "q": "Fiyat nasıl belirlenir?",
