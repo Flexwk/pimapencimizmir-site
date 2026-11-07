@@ -133,6 +133,20 @@
     }
   ],
   "name": "Pimapen Servisi",
+  "brands": [
+    {
+      "logo": "/img/firatpen.jpeg",
+      "name": "Fıratpen"
+    },
+    {
+      "name": "Egepen",
+      "logo": "/img/egeepen.jpeg"
+    },
+    {
+      "name": "Winsa",
+      "logo": "/img/winsa.jpeg"
+    }
+  ],
   "phone": "0538 570 65 17",
   "gallery": [
     {
