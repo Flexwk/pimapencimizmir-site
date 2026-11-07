@@ -34,63 +34,79 @@
     },
     {
       "name": "Çeşme",
-      "note": "Conta değişimi ve kapanma ayarıyla ses ve hava yalıtımı gözle görülür iyileşebilir."
+      "note": "Yazlık ve sezonluk evler çok. Kışın kapalı kalan evlerde contalar kurur, deniz yakınındaki tuz ve nem menteşe ile kolu hızlı yıpratır. Sezondan önce kapanma ve conta kontrolü yaptırın. Uzak olduğu için randevuyu önceden planlayın."
     },
     {
       "name": "Urla",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "Bahçeli müstakil evler ve bağ evleri yaygın. Geniş sürme kapıların tekerlek ve rayları ağır çalışır, bakım ister. Müstakil evlerde sineklik ölçüleri standarttan farklı çıkabildiği için özel ölçü imalat uygun olur."
     },
     {
       "name": "Seferihisar",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "Sığacık ve Akarca gibi sahil yerleşimlerinde yazlık siteler çok. Deniz havası alüminyum ve çelik aksamı paslandırabilir, kilit ve kollarda erken sertleşme görülür. Yazlığı açmadan önce bakım yaptırmak mantıklı."
     },
     {
       "name": "Torbalı",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "Hızla büyüyen yeni konut siteleri ve sanayi çevresi var. Yeni yapılarda montaj sonrası ayar ve kilit hizası sık istenir. Sanayiye yakın mahallelerde toz raylarda birikir.."
     },
     {
       "name": "Balçova",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "Küçük ve yoğun bir ilçe, apartman dairesi çok. Aynı binadaki komşular genelde aynı pencere sistemini kullandığından toplu randevu verimli olur. Kiralık dairelerde çıkış öncesi ayar ve conta kontrolü sık yapılıyor."
     },
     {
       "name": "Bergama",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "Merkezden uzak, kuzeyde. Eski yığma evlerde kasalar zamanla oturup pencere ve kapının kapanmasını bozabilir, montajda ölçü hassasiyeti önemli. Birkaç işi aynı günde toplamak için önceden arayın."
     },
     {
       "name": "Foça",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "arihî dokulu mahallelerde dış cephe görünümünü değiştiren montajlar için belediyeden izin gerekebilir. Bu yüzden tamir ve ayar işleri montajdan daha sık tercih ediliyor. Önce belediyeye sorun."
     },
     {
       "name": "Dikili",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "Kuzey Ege kıyısında yazlık siteler ve deniz yakını evler var. Nem ve tuz contaları yıpratır, kışın kapalı kalan evlerde kasaya yapışma görülür. Uzak bir ilçe, tek ziyarette birden fazla işi halletmek için randevu alın"
     },
     {
       "name": "Güzelbahçe",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "Müstakil villalar ve bahçeli siteler yaygın, geniş cam yüzeyler ve cam balkonlar çok. Deniz yakınlığı nedeniyle mekanizma bakımı yılda bir önerilir. Sürme sistemlerin rayları kum ve tozla dolabilir."
     },
     {
-      "name": "Karababurun",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "name": "Karaburun",
+      "note": "Yarımadanın açık rüzgârı pencere ve kapı sistemlerini zorlar, kapanma ayarı çabuk bozulur. Yazlık evlerin çoğu mevsimlik kullanılır. Ulaşım uzun olduğu için işleri birleştirerek randevu almak daha mantıklı."
     },
     {
       "name": "Kemalpaşa",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "Organize sanayi bölgesi ve hızla büyüyen konutlar var. Sanayi tozu sürgülü sistemlerin raylarını tıkayabilir, yeni sitelerde ayar ve kilit hizası sorunları görülür. Konutlarda sineklik talebi yüksek."
     },
     {
       "name": "Kınık",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "Kırsal ve merkezden uzak bir ilçe. Bahçeli müstakil evlerde sineklik ve kapı kilidi işleri öne çıkar. Ulaşım uzun olduğu için önceden arayıp gün planlamanız gerekir."
     },
     {
       "name": "Kiraz",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "İç kesimde, dağlık ve serin bir ilçe. Kışın soğuk hava sızması ve ısı kaybı için conta kontrolü en çok istenen iş olur. Mesafe fazla olduğu için randevu öncesi telefonla ayrıntıyı paylaşmanız işi hızlandırır."
     },
     {
       "name": "Menderes",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "Sahilde Özdere ve Gümüldür gibi yazlık siteler, iç kesimde Cumaovası’nda yeni siteler var. Sahildeki evlerde tuz ve nem aksamı yıpratırken iç kesimde montaj sonrası ayar daha çok isteniyor."
     },
     {
       "name": "Menemen",
-      "note": "Kiralık daire ve taşınma sonrası işler çok olur: ayar, kilit değişimi, eksik sineklik. Çok sayıda pencerede toplu bakım yaptırırsanız tek ziyarette halledebiliriz."
+      "note": "Düz ova yapısı nedeniyle rüzgâr açık, toz ve kir rayları hızlı tıkar. Sanayiye yakın mahallelerde pencere temizliği ve ray bakımı sık gerekir. Yeni sitelerde sineklik ve kol değişimi istenen işler arasında."
+    },
+    {
+      "name": "Aliağa",
+      "note": "Rafineri, petrokimya ve liman gibi ağır sanayi çevresi yoğun. Sanayi tozu ve kirliliği pencere raylarına, sürme sistemlere ve sinekliklere çabuk birikir. Bu yüzden temizlik, yağlama ve sineklik tülü değişimi sık istenir. Merkezden uzak bir ilçe, birkaç işi aynı gün toplamak için önceden arayın."
+    },
+    {
+      "name": "Narlıdere",
+      "note": "Yamaçlara kurulu, apartman ve site yoğunluğu yüksek. Yüksek katlarda ve yamaç cephelerinde rüzgâr pencereleri zorlar, kol ve menteşe gevşemesi görülür. Birçok bina yakın yaşta olduğundan toplu bakım randevusu apartman bazında verimli olur. Dar ve eğimli sokaklarda park yeri için randevuda adres tarifi paylaşın."
+    },
+    {
+      "name": "Ödemiş ",
+      "note": "İç kesimde, tarım ağırlıklı bir ilçe. Yazları sıcak, kışları soğuk geçtiği için PVC doğramalar genleşip büzüşür, bu da kapanma ayarını ve contaları yorar. Bahçeli müstakil evlerde sineklik ve balkon kapısı işleri öne çıkar. Merkezden epey uzak olduğu için günü önceden planlayıp işleri birleştirmek mantıklı."
+    },
+    {
+      "name": "Tire",
+      "note": "Tarihî dokusu olan, iç kesimde bir ilçe. Eski ve yarı eski yapılarda kasaların zamanla oturması pencerelerin kapanmasını bozabilir, kilit ve menteşe ayarı sık gerekir. Çarşı çevresindeki dar sokaklarda araç yaklaşımı kısıtlı olabilir, randevu öncesi adres tarifi paylaşın. Uzak olduğu için işleri tek ziyarette toplamak daha uygun."
     }
   ],
   "opens": "08:00",
