@@ -15,6 +15,13 @@ def tags():return '<div class="tags">'+''.join(f'<a class="tag" href="/{slug(d["
 def faq(n=99):return ''.join(f'<details><summary>{e(f["q"])}</summary><p>{e(f["a"])}</p></details>' for f in D['faq'][:n])
 def cards():return '<div class="grid">'+''.join(f'<a class="card" href="/hizmetler/#{slug(s["title"])}">{ic(s["icon"])}<h3>{e(s["title"])}</h3><p>{e(s["desc"])}</p></a>' for s in D['services'])+'</div>'
 WIN='<svg viewBox="0 0 220 220" role="img" aria-label="Pencere illüstrasyonu"><rect x="30" y="20" width="160" height="180" rx="8" fill="none" stroke="currentColor" stroke-width="8"/><path d="M110 20v180M30 110h160" stroke="currentColor" stroke-width="6"/><path d="M52 44l24 24" stroke="var(--acc)" stroke-width="6" stroke-linecap="round"/></svg>'
+def brands():
+    B=[b for b in (D.get('brands') or []) if b.get('name')]
+    if not B:return ''
+    it=''.join('<div class="bi">'+(f'<img src="{e(b["logo"])}" alt="{e(b["name"])}" loading="lazy">' if b.get('logo') else f'<span class="bn">{e(b["name"])}</span>')+'</div>' for b in B)
+    hf=it*max(1,-(-8//len(B)))
+    return f'<section class="s brands"><div class="w"><h2>Çalıştığımız Markalar</h2></div><div class="mq" role="group" aria-label="Çalıştığımız markalar"><div class="mt"><div class="hf">{hf}</div><div class="hf dup" aria-hidden="true">{hf}</div></div></div></section>'
+BR=brands()
 pages=[]
 def page(url,title,desc,body,ld=''):
     pages.append(url);nav=''.join(f'<a href="{u}"{" aria-current=page" if u==url else ""}>{n}</a>' for u,n in NAV)
@@ -23,7 +30,7 @@ def page(url,title,desc,body,ld=''):
 <meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{U}{url}">
 <link rel="stylesheet" href="/style.css">{ld}</head><body><a class="skip" href="#i">İçeriğe geç</a>
 <header><div class="w hd"><a class="logo" href="/">{N}</a><button id="m" class="menu" aria-expanded="false" aria-controls="n" aria-label="Menü">☰</button><nav id="n">{nav}</nav><a class="btn call" href="tel:{tel}">Hemen Ara</a></div></header>
-<main id="i">{body}</main>
+<main id="i">{body}</main>{BR}
 <footer><div class="w"><p><b>{N}</b> · İzmir · <a href="tel:{tel}">{e(D["phone"])}</a></p><p>{e(D["hours_text"])}</p></div></footer>
 <div class="bar"><a class="btn" href="tel:{tel}">Ara</a><a class="btn wa" href="{WA}">WhatsApp</a></div>
 <script>var m=document.getElementById('m'),n=document.getElementById('n');m.onclick=function(){{var o=n.classList.toggle('open');m.setAttribute('aria-expanded',o)}}</script></body></html>'''
@@ -39,9 +46,9 @@ ba='<div class="grid2"><div class="ph">Önce fotoğrafı<br>(yer tutucu)</div><d
 def gal(n=None):
     G=(D.get('gallery') or [])[:n]
     if not G:return ba
-    return '<div class="gl">'+''.join(f'<figure class="gi"><div class="grid2"><div><img src="{e(g["before"])}" alt="{e(g.get("title",""))} önce" loading="lazy"><span class="lb">Önce</span></div><div><img src="{e(g["after"])}" alt="{e(g.get("title",""))} sonra" loading="lazy"><span class="lb">Sonra</span></div></div><figcaption>{e(g.get("title",""))}</figcaption></figure>' for g in G)+'</div>'
+    return '<div class="gl">'+''.join(f'<figure class="gi"><div class="grid2"><div><img src="{e(g["before"])}" alt="{e(g.get("title",""))} önce" loading="lazy"></div><div><img src="{e(g["after"])}" alt="{e(g.get("title",""))} sonra" loading="lazy"></div></div><figcaption>{e(g.get("title",""))}</figcaption></figure>' for g in G)+'</div>'
 page('/','İzmir Pimapen Tamiri ve PVC Kapı-Pencere Servisi | '+D['name'],'İzmir’de pimapen tamiri, montajı, sineklik ve cam balkon servisi. Net fiyat aralığı, yerinde servis. Hemen arayın veya WhatsApp’tan teklif isteyin.',
- hero('İzmir Pimapen Tamiri ve PVC Kapı-Pencere Servisi','Menteşe, kol, kilit ve conta arızalarında yerinde onarım. Fiyatı baştan söyleriz.',trust)+sec('Hizmetlerimiz',cards())+sec('Başlangıç fiyatları',prices(),'alt')+sec('Hizmet verdiğimiz ilçeler',tags())+sec('Çalışmalarımız',gal(2)+'<p><a class="btn o" href="/islerimiz/">Tüm işlerimizi gör</a></p>','alt')+sec('Sık sorulan sorular',faq(3)+'<p><a href="/sss/">Tüm soruları gör</a></p>'),ld)
+ hero('İzmir Pimapen Tamiri ve PVC Kapı-Pencere Servisi','Menteşe, kol, kilit ve conta arızalarında yerinde onarım. Fiyatı baştan söyleriz.',trust)+sec('Hizmetlerimiz',cards())+sec('Başlangıç fiyatları',prices(),'alt')+sec('Hizmet verdiğimiz ilçeler',tags())+sec('Önce / sonra',gal(2)+'<p><a class="btn o" href="/islerimiz/">Tüm işlerimizi gör</a></p>','alt')+sec('Sık sorulan sorular',faq(3)+'<p><a href="/sss/">Tüm soruları gör</a></p>'),ld)
 page('/islerimiz/','İşlerimiz: Önce ve Sonra Fotoğrafları | '+D['name'],'İzmir’de yaptığımız pimapen tamiri, montaj ve cam balkon işlerinden önce ve sonra fotoğrafları.',sec('İşlerimiz',gal()+cta()))
 page('/hizmetler/','Hizmetler: Pimapen Tamiri, Montaj, Sineklik, Cam Balkon | '+D['name'],'Pimapen tamiri, montajı, sineklik, cam balkon ve PVC kapı işleri: ne yapıldığı ve ne zaman gerektiği.',
  sec('Hizmetler',''.join(f'<article id="{slug(s["title"])}" class="card big">{ic(s["icon"])}<h3>{e(s["title"])}</h3><p><b>Ne yapılır:</b> {e(s["desc"])}</p><p><b>Ne zaman gerekir:</b> {e(s["when"])}</p></article>' for s in D['services'])+cta()))
@@ -56,6 +63,6 @@ for d in D['districts']:
      hero(f'{n} Pimapen Tamiri',f'{n}’de PVC kapı-pencere arızalarına yerinde servis.')+sec(f'{n} için not',f'<p class="note">{e(d["note"])}</p>')+sec('Yaptığımız işler','<ul class="list">'+''.join(f'<li>{e(x["title"])}: {e(x["desc"])}</li>' for x in D['services'])+'</ul>'+cta(),'alt')+sec('Diğer ilçeler',tags()))
 open(O+'/sitemap.xml','w').write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{U}{u}</loc></url>' for u in pages)+'</urlset>')
 open(O+'/robots.txt','w').write(f'User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: {U}/sitemap.xml\n')
-X='nav a{padding:12px 8px}.btn.o{background:transparent;color:var(--fg);border:2px solid currentColor}.btn.o:hover{border-color:var(--acc)}.gi{margin:0 0 24px}.gi img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block}.gi .grid2>div{position:relative}.lb{position:absolute;left:10px;top:10px;background:var(--hd);color:#fff;padding:2px 10px;border-radius:99px;font-size:14px}.gi figcaption{margin-top:8px;color:var(--mut);font-size:15px}'
+X='.mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}.mt{display:flex;width:max-content;animation:mq 35s linear infinite}.mq:hover .mt{animation-play-state:paused}.hf{display:flex}.bi{flex:none;display:flex;align-items:center;justify-content:center;min-width:160px;height:72px;padding:0 24px;margin-right:16px;border:1px solid var(--line);border-radius:12px;background:var(--card)}.bi img{max-height:44px;max-width:140px;object-fit:contain}.bn{font-weight:800;font-size:18px;color:var(--mut);white-space:nowrap}@keyframes mq{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.mq{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.dup{display:none}}nav a{padding:12px 8px}.btn.o{background:transparent;color:var(--fg);border:2px solid currentColor}.btn.o:hover{border-color:var(--acc)}.gi{margin:0 0 24px}.gi img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block}.gi .grid2>div{position:relative}.lb{position:absolute;left:10px;top:10px;background:var(--hd);color:#fff;padding:2px 10px;border-radius:99px;font-size:14px}.gi figcaption{margin-top:8px;color:var(--mut);font-size:15px}'
 open(O+'/style.css','w').write(open('style.css').read()+X)
 print(len(pages),'sayfa')
