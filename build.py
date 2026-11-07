@@ -5,7 +5,7 @@ slug=lambda s:re.sub(r'[^a-z0-9]+','-',s.translate(T).lower()).strip('-')
 e=html.escape;N=e(D['name']);dg=re.sub(r'\D','',D['phone']);tel='+90'+dg[1:]
 WA='https://wa.me/90'+dg[1:]+'?text='+up.quote('Merhaba, pimapen için teklif almak istiyorum.')
 U=D['site_url'].rstrip('/')
-NAV=[('/','Ana Sayfa'),('/hizmetler/','Hizmetler'),('/fiyatlar/','Fiyatlar'),('/hizmet-bolgeleri/','Hizmet Bölgeleri'),('/hakkimizda/','Hakkımızda'),('/sss/','SSS'),('/iletisim/','İletişim')]
+NAV=[('/','Ana Sayfa'),('/hizmetler/','Hizmetler'),('/fiyatlar/','Fiyatlar'),('/islerimiz/','İşlerimiz'),('/hizmet-bolgeleri/','Hizmet Bölgeleri'),('/hakkimizda/','Hakkımızda'),('/sss/','SSS'),('/iletisim/','İletişim')]
 IC={'wrench':'<path d="M14 6a4 4 0 0 0 5 5l-9 9a2 2 0 0 1-3-3l9-9a4 4 0 0 0-2-2z"/>','window':'<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M12 3v18M4 12h16"/>','mesh':'<rect x="3" y="4" width="18" height="16"/><path d="M3 9h18M3 14h18M9 4v16M15 4v16"/>','balcony':'<rect x="3" y="4" width="18" height="12"/><path d="M9 4v12M15 4v12M3 20h18"/>','door':'<rect x="6" y="3" width="12" height="18"/><circle cx="15" cy="12" r="1"/>'}
 ic=lambda n:f'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{IC.get(n,IC["window"])}</svg>'
 def cta():return f'<div class="row"><a class="btn" href="tel:{tel}">Hemen Ara</a><a class="btn wa" href="{WA}">WhatsApp\'tan Teklif İste</a></div>'
@@ -36,12 +36,13 @@ hero=lambda h,p,extra='':f'<section class="hero"><div class="w hg"><div><h1>{h}<
 trust='<ul class="trust"><li>Ücretsiz keşif sözü vermiyoruz; fiyatı baştan açık söylüyoruz</li><li>Net fiyat aralığı</li><li>Yerinde servis</li></ul>'
 trust='<ul class="trust"><li>Net fiyat aralığı</li><li>Yerinde servis</li><li>Görünür çalışma saatleri</li></ul>'
 ba='<div class="grid2"><div class="ph">Önce fotoğrafı<br>(yer tutucu)</div><div class="ph">Sonra fotoğrafı<br>(yer tutucu)</div></div>'
-def gal():
-    G=D.get('gallery') or []
+def gal(n=None):
+    G=(D.get('gallery') or [])[:n]
     if not G:return ba
     return '<div class="gl">'+''.join(f'<figure class="gi"><div class="grid2"><div><img src="{e(g["before"])}" alt="{e(g.get("title",""))} önce" loading="lazy"><span class="lb">Önce</span></div><div><img src="{e(g["after"])}" alt="{e(g.get("title",""))} sonra" loading="lazy"><span class="lb">Sonra</span></div></div><figcaption>{e(g.get("title",""))}</figcaption></figure>' for g in G)+'</div>'
 page('/','İzmir Pimapen Tamiri ve PVC Kapı-Pencere Servisi | '+D['name'],'İzmir’de pimapen tamiri, montajı, sineklik ve cam balkon servisi. Net fiyat aralığı, yerinde servis. Hemen arayın veya WhatsApp’tan teklif isteyin.',
- hero('İzmir Pimapen Tamiri ve PVC Kapı-Pencere Servisi','Menteşe, kol, kilit ve conta arızalarında yerinde onarım. Fiyatı baştan söyleriz.',trust)+sec('Hizmetlerimiz',cards())+sec('Başlangıç fiyatları',prices(),'alt')+sec('Hizmet verdiğimiz ilçeler',tags())+sec('Önce / sonra',gal(),'alt')+sec('Sık sorulan sorular',faq(3)+'<p><a href="/sss/">Tüm soruları gör</a></p>'),ld)
+ hero('İzmir Pimapen Tamiri ve PVC Kapı-Pencere Servisi','Menteşe, kol, kilit ve conta arızalarında yerinde onarım. Fiyatı baştan söyleriz.',trust)+sec('Hizmetlerimiz',cards())+sec('Başlangıç fiyatları',prices(),'alt')+sec('Hizmet verdiğimiz ilçeler',tags())+sec('Önce / sonra',gal(2)+'<p><a class="btn o" href="/islerimiz/">Tüm işlerimizi gör</a></p>','alt')+sec('Sık sorulan sorular',faq(3)+'<p><a href="/sss/">Tüm soruları gör</a></p>'),ld)
+page('/islerimiz/','İşlerimiz: Önce ve Sonra Fotoğrafları | '+D['name'],'İzmir’de yaptığımız pimapen tamiri, montaj ve cam balkon işlerinden önce ve sonra fotoğrafları.',sec('İşlerimiz',gal()+cta()))
 page('/hizmetler/','Hizmetler: Pimapen Tamiri, Montaj, Sineklik, Cam Balkon | '+D['name'],'Pimapen tamiri, montajı, sineklik, cam balkon ve PVC kapı işleri: ne yapıldığı ve ne zaman gerektiği.',
  sec('Hizmetler',''.join(f'<article id="{slug(s["title"])}" class="card big">{ic(s["icon"])}<h3>{e(s["title"])}</h3><p><b>Ne yapılır:</b> {e(s["desc"])}</p><p><b>Ne zaman gerekir:</b> {e(s["when"])}</p></article>' for s in D['services'])+cta()))
 page('/fiyatlar/','Pimapen Tamir Fiyatları | '+D['name'],'Pimapen tamiri, menteşe, kol, kilit, conta ve sineklik için başlangıç fiyatları. Kesin ücret yerinde belirlenir.',sec('Başlangıç fiyatları',prices()+cta()))
@@ -55,6 +56,6 @@ for d in D['districts']:
      hero(f'{n} Pimapen Tamiri',f'{n}’de PVC kapı-pencere arızalarına yerinde servis.')+sec(f'{n} için not',f'<p class="note">{e(d["note"])}</p>')+sec('Yaptığımız işler','<ul class="list">'+''.join(f'<li>{e(x["title"])}: {e(x["desc"])}</li>' for x in D['services'])+'</ul>'+cta(),'alt')+sec('Diğer ilçeler',tags()))
 open(O+'/sitemap.xml','w').write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{U}{u}</loc></url>' for u in pages)+'</urlset>')
 open(O+'/robots.txt','w').write(f'User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: {U}/sitemap.xml\n')
-X='.gi{margin:0 0 24px}.gi img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block}.gi .grid2>div{position:relative}.lb{position:absolute;left:10px;top:10px;background:var(--hd);color:#fff;padding:2px 10px;border-radius:99px;font-size:14px}.gi figcaption{margin-top:8px;color:var(--mut);font-size:15px}'
+X='nav a{padding:12px 8px}.btn.o{background:transparent;color:var(--fg);border:2px solid currentColor}.btn.o:hover{border-color:var(--acc)}.gi{margin:0 0 24px}.gi img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block}.gi .grid2>div{position:relative}.lb{position:absolute;left:10px;top:10px;background:var(--hd);color:#fff;padding:2px 10px;border-radius:99px;font-size:14px}.gi figcaption{margin-top:8px;color:var(--mut);font-size:15px}'
 open(O+'/style.css','w').write(open('style.css').read()+X)
 print(len(pages),'sayfa')
