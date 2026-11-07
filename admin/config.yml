@@ -54,3 +54,10 @@ collections:
               - {name: title, label: Başlık (örn. Buca menteşe değişimi)}
               - {name: before, label: Önce fotoğrafı, widget: image}
               - {name: after, label: Sonra fotoğrafı, widget: image}
+          - name: brands
+            label: Çalıştığımız markalar (sitenin altında kayar)
+            widget: list
+            required: false
+            fields:
+              - {name: name, label: Marka adı}
+              - {name: logo, label: Logo (isteğe bağlı), widget: image, required: false}
