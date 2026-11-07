@@ -120,7 +120,7 @@
   "phone": "0538 570 65 17",
   "gallery": [
     {
-      "title": "İşlerimiz",
+      "title": "Çalışmalarımız",
       "before": "/img/pic6.jpeg",
       "after": "/img/picc1.jpeg"
     },
@@ -132,6 +132,36 @@
     {
       "before": "/img/pic4.jpeg",
       "after": "/img/pic2.jpeg",
+      "title": "Çalışmalarımız"
+    },
+    {
+      "before": "/img/pic12.jpeg",
+      "after": "/img/pic11.jpeg",
+      "title": "Çalışmalarımız"
+    },
+    {
+      "before": "/img/pic10.jpeg",
+      "after": "/img/pic9.jpeg",
+      "title": "Çalışmalarımız"
+    },
+    {
+      "before": "/img/pic8.jpeg",
+      "after": "/img/pic77.jpeg",
+      "title": "Çalışmalarımız"
+    },
+    {
+      "before": "/img/pic66.jpeg",
+      "after": "/img/pic55.jpeg",
+      "title": "Çalışmalarımız"
+    },
+    {
+      "before": "/img/pic44.jpeg",
+      "after": "/img/pic33.jpeg",
+      "title": "Çalışmalarımız"
+    },
+    {
+      "before": "/img/pic22.jpeg",
+      "after": "/img/pic11-2-.jpeg",
       "title": "Çalışmalarımız"
     }
   ],
