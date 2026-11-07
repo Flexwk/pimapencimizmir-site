@@ -128,6 +128,11 @@
       "title": "Çalışmalarımız",
       "before": "/img/pic-5.jpeg",
       "after": "/img/pic3.jpeg"
+    },
+    {
+      "before": "/img/pic4.jpeg",
+      "after": "/img/pic2.jpeg",
+      "title": "Çalışmalarımız"
     }
   ],
   "faq": [
