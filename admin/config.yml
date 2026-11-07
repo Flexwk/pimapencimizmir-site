@@ -1,10 +1,10 @@
-local_backend: true
 backend:
   name: github
-  repo: Flexwk/pimapencimizmir-site  # kendi GitHub deponuz
+  repo: Flexwk/pimapencimizmir-site   # kendi GitHub deponuz
   branch: main
 locale: tr
 media_folder: static/img
+public_folder: /img
 publish_mode: simple
 collections:
   - name: ayarlar
@@ -46,3 +46,11 @@ collections:
             fields:
               - {name: q, label: Soru}
               - {name: a, label: Cevap, widget: text}
+          - name: gallery
+            label: Önce / Sonra fotoğrafları
+            widget: list
+            required: false
+            fields:
+              - {name: title, label: Başlık (örn. Buca menteşe değişimi)}
+              - {name: before, label: Önce fotoğrafı, widget: image}
+              - {name: after, label: Sonra fotoğrafı, widget: image}
