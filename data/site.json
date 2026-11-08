@@ -107,6 +107,10 @@
     {
       "name": "Tire",
       "note": "Tarihî dokusu olan, iç kesimde bir ilçe. Eski ve yarı eski yapılarda kasaların zamanla oturması pencerelerin kapanmasını bozabilir, kilit ve menteşe ayarı sık gerekir. Çarşı çevresindeki dar sokaklarda araç yaklaşımı kısıtlı olabilir, randevu öncesi adres tarifi paylaşın. Uzak olduğu için işleri tek ziyarette toplamak daha uygun."
+    },
+    {
+      "name": "Mavişehir",
+      "note": "Yüksek Isı Yalıtımı ve Düşük Faturalar\nGürültü ve Ses İzolasyonu\nHava ve Su Sızdırmazlığı\nGüvenlik ve Estetik Değer"
     }
   ],
   "opens": "08:00",
