@@ -22,6 +22,13 @@ def brands():
     hf=it*max(1,-(-8//len(B)))
     return f'<section class="s brands"><div class="w"><h2>Çalıştığımız Markalar</h2></div><div class="mq" role="group" aria-label="Çalıştığımız markalar"><div class="mt"><div class="hf">{hf}</div><div class="hf dup" aria-hidden="true">{hf}</div></div></div></section>'
 BR=brands()
+def about():
+    t=(D.get('about') or '').strip()
+    P=[x.strip() for x in re.split(r'\n\s*\n',t) if x.strip()] if t else [
+     D['name']+', İzmir’de PVC pencere ve kapı sistemleri için yerinde tamir, bakım ve montaj hizmeti verir. Menteşe, kol, kilit ve conta arızalarından sineklik ve cam balkon mekanizmalarına kadar günlük hayatta en sık karşılaşılan işlerle ilgileniriz.',
+     'Çalışma şeklimiz basit: arızayı yerinde görürüz, gerekeni ve maliyetini işe başlamadan önce söyleriz, siz onay verdikten sonra çalışırız. Fiyat aralıklarımızı sitede açıkça yayınlıyoruz; kesin ücret yerinde belirlenir.',
+     'Çalışma saatlerimiz: '+D['hours_text']+'. Hizmet verdiğimiz ilçeler Hizmet Bölgeleri sayfasında listelenmiştir. Aramak veya WhatsApp’tan yazmak için aşağıdaki butonları kullanabilirsiniz.']
+    return ''.join('<p>'+e(x)+'</p>' for x in P)
 pages=[]
 def page(url,title,desc,body,ld=''):
     pages.append(url);nav=''.join(f'<a href="{u}"{" aria-current=page" if u==url else ""}>{n}</a>' for u,n in NAV)
@@ -60,7 +67,7 @@ page('/hizmetler/','Hizmetler: Pimapen Tamiri, Montaj, Sineklik, Cam Balkon | '+
  sec('Hizmetler',''.join(f'<article id="{slug(s["title"])}" class="card big">{ic(s["icon"])}<h3>{e(s["title"])}</h3><p><b>Ne yapılır:</b> {e(s["desc"])}</p><p><b>Ne zaman gerekir:</b> {e(s["when"])}</p></article>' for s in D['services'])+cta()))
 page('/fiyatlar/','Pimapen Tamir Fiyatları | '+D['name'],'Pimapen tamiri, menteşe, kol, kilit, conta ve sineklik için başlangıç fiyatları. Kesin ücret yerinde belirlenir.',sec('Başlangıç fiyatları',prices()+cta()))
 page('/hizmet-bolgeleri/','Hizmet Bölgeleri: İzmir İlçeleri | '+D['name'],'Karabağlar, Buca, Bornova, Konak, Karşıyaka, Bayraklı, Çiğli ve Gaziemir’de pimapen servisi.',sec('Hizmet bölgeleri',tags()+cta()))
-page('/hakkimizda/','Hakkımızda | '+D['name'],D['name']+', İzmir’de pimapen tamiri ve montajı yapan yerinde servis ekibidir.',sec('Hakkımızda',f'<p>{N}, İzmir’de PVC pencere ve kapı arızalarını yerinde onarır. Önce bakar, sonra net fiyatı söyler, onayınızla işe başlarız.</p><p>[Buraya kendi hikâyenizi, deneyim yılınızı ve çalışma biçiminizi ekleyin.]</p>'+cta()))
+page('/hakkimizda/','Hakkımızda | '+D['name'],D['name']+', İzmir’de pimapen tamiri ve montajı yapan yerinde servis ekibidir.',sec('Hakkımızda',about()+cta()))
 page('/sss/','Sık Sorulan Sorular | '+D['name'],'Pimapen tamiri fiyatı, keşif, aynı gün servis ve garanti hakkında sık sorulan sorular.',sec('Sık sorulan sorular',faq()+cta()),'<script type="application/ld+json">'+json.dumps({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":f['q'],"acceptedAnswer":{"@type":"Answer","text":f['a']}} for f in D['faq']]},ensure_ascii=False)+'</script>')
 page('/iletisim/','İletişim | '+D['name'],'Pimapen servisi için arayın veya WhatsApp’tan yazın. Çalışma saatleri ve hizmet bölgeleri.',sec('İletişim',f'<p>Telefon / WhatsApp: <a href="tel:{tel}"><b>{e(D["phone"])}</b></a></p><p>Çalışma saatleri: {e(D["hours_text"])}</p><p>Bölgeler: {", ".join(e(d["name"]) for d in D["districts"])}</p>'+cta()+'<form name="iletisim" method="POST" data-netlify="true"><label>Adınız<input name="ad" required autocomplete="name"></label><label>Telefon<input name="telefon" type="tel" required autocomplete="tel"></label><label>Mesajınız<textarea name="mesaj" rows="4" required></textarea></label><button class="btn" type="submit">Mesaj Gönder</button></form>'))
 for d in D['districts']:
