@@ -28,7 +28,7 @@ def page(url,title,desc,body,ld=''):
     h=f'''<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark">
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{U}{url}">
 <meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{U}{url}">
-<link rel="stylesheet" href="/style.css">{ld}</head><body><a class="skip" href="#i">İçeriğe geç</a>
+{ICON}<meta name="theme-color" content="#0b2a5b"><link rel="stylesheet" href="/style.css">{ld}</head><body><a class="skip" href="#i">İçeriğe geç</a>
 <header><div class="w hd"><a class="logo" href="/">{N}</a><button id="m" class="menu" aria-expanded="false" aria-controls="n" aria-label="Menü">☰</button><nav id="n">{nav}</nav><a class="btn call" href="tel:{tel}">Hemen Ara</a></div></header>
 <main id="i">{body}</main>{BR}
 <footer><div class="w"><p><b>{N}</b> · İzmir · <a href="tel:{tel}">{e(D["phone"])}</a></p><p>{e(D["hours_text"])}</p></div></footer>
@@ -38,6 +38,12 @@ def page(url,title,desc,body,ld=''):
 shutil.rmtree(O,ignore_errors=True);os.makedirs(O)
 shutil.copytree('admin',O+'/admin')
 if os.path.isdir('static/img'):shutil.copytree('static/img',O+'/img')
+if os.path.exists('favicon.png'):
+    shutil.copy('favicon.png',O+'/favicon.png');ICON='<link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/favicon.png">'
+else:
+    open(O+'/favicon.svg','w',encoding='utf-8').write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0b2a5b"/><rect x="16" y="12" width="32" height="40" rx="3" fill="none" stroke="#fff" stroke-width="4"/><path d="M32 12v40M16 32h32" stroke="#fff" stroke-width="3"/><circle cx="41" cy="22" r="3" fill="#ff6b1a"/></svg>')
+    ICON='<link rel="icon" type="image/svg+xml" href="/favicon.svg">'
+
 ld='<script type="application/ld+json">'+json.dumps({"@context":"https://schema.org","@type":"LocalBusiness","name":D['name'],"telephone":tel,"url":U,"priceRange":"800-6000 TL","address":{"@type":"PostalAddress","addressRegion":"İzmir","addressCountry":"TR"},"areaServed":[{"@type":"AdministrativeArea","name":d['name']+', İzmir'} for d in D['districts']],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":D['opens'],"closes":D['closes']}]},ensure_ascii=False)+'</script>'
 hero=lambda h,p,extra='':f'<section class="hero"><div class="w hg"><div><h1>{h}</h1><p class="lead">{p}</p>{cta()}{extra}</div><div class="art">{WIN}</div></div></section>'
 trust='<ul class="trust"><li>Ücretsiz keşif sözü vermiyoruz; fiyatı baştan açık söylüyoruz</li><li>Net fiyat aralığı</li><li>Yerinde servis</li></ul>'
