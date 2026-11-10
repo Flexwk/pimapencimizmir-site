@@ -29,13 +29,16 @@ def about():
      'Çalışma şeklimiz basit: arızayı yerinde görürüz, gerekeni ve maliyetini işe başlamadan önce söyleriz, siz onay verdikten sonra çalışırız. Fiyat aralıklarımızı sitede açıkça yayınlıyoruz; kesin ücret yerinde belirlenir.',
      'Çalışma saatlerimiz: '+D['hours_text']+'. Hizmet verdiğimiz ilçeler Hizmet Bölgeleri sayfasında listelenmiştir. Aramak veya WhatsApp’tan yazmak için aşağıdaki butonları kullanabilirsiniz.']
     return ''.join('<p>'+e(x)+'</p>' for x in P)
+GTM_ID='GTM-M3PCGJ6F'
+GTM_HEAD="<!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','"+GTM_ID+"');</script><!-- End Google Tag Manager -->"
+GTM_BODY='<!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id='+GTM_ID+'" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) -->'
 pages=[]
 def page(url,title,desc,body,ld=''):
     pages.append(url);nav=''.join(f'<a href="{u}"{" aria-current=page" if u==url else ""}>{n}</a>' for u,n in NAV)
-    h=f'''<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark">
+    h=f'''<!doctype html><html lang="tr"><head><meta charset="utf-8">{GTM_HEAD}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark">
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{U}{url}">
 <meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{U}{url}">
-{ICON}<meta name="theme-color" content="#0b2a5b"><link rel="stylesheet" href="/style.css">{ld}</head><body><a class="skip" href="#i">İçeriğe geç</a>
+{ICON}<meta name="theme-color" content="#0b2a5b"><link rel="stylesheet" href="/style.css">{ld}</head><body>{GTM_BODY}<a class="skip" href="#i">İçeriğe geç</a>
 <header><div class="w hd"><a class="logo" href="/">{N}</a><button id="m" class="menu" aria-expanded="false" aria-controls="n" aria-label="Menü">☰</button><nav id="n">{nav}</nav><a class="btn call" href="tel:{tel}">Hemen Ara</a></div></header>
 <main id="i">{body}</main>{BR}
 <footer><div class="w"><p><b>{N}</b> · İzmir · <a href="tel:{tel}">{e(D["phone"])}</a></p><p>{e(D["hours_text"])}</p></div></footer>
