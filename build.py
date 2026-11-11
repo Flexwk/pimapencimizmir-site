@@ -1,4 +1,28 @@
 import json,re,os,shutil,html,urllib.parse as up
+
+GTM_ID='GTM-M3PCGJ6F'   # Google Ads'in verdiği etiket kapsayıcısı
+ADS_ID=''               # AW-... ile başlayan kimlik. Doluysa GTM yerine bu kullanılır
+CONV={'phone_click':'','whatsapp_click':'','form_submit':''}   # her biri AW-xxx/yyy biçiminde
+TRKJS="""(function(){var G='__G__',A='__A__',L=__L__,K='pz_consent',b=document.getElementById('cb');
+function g(){try{return localStorage.getItem(K)}catch(e){return null}}
+function st(v){try{localStorage.setItem(K,v)}catch(e){}}
+function load(){if(window.__t)return;window.__t=1;window.dataLayer=window.dataLayer||[];var s=document.createElement('script');s.async=1;
+if(A){window.gtag=function(){dataLayer.push(arguments)};s.src='https://www.googletagmanager.com/gtag/js?id='+A;gtag('js',new Date());gtag('config',A)}
+else{dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});s.src='https://www.googletagmanager.com/gtm.js?id='+G}
+document.head.appendChild(s)}
+function ev(n){if(g()!=='1')return;window.dataLayer=window.dataLayer||[];dataLayer.push({event:n});if(A&&window.gtag&&L[n])gtag('event','conversion',{send_to:L[n]})}
+var c=g();if(c==='1')load();else if(!c&&b)b.hidden=false;
+document.getElementById('cy').onclick=function(){st('1');b.hidden=true;load();if(location.pathname==='/tesekkurler/')ev('form_submit')};
+document.getElementById('cn').onclick=function(){st('0');b.hidden=true};
+var k=document.getElementById('ck');if(k)k.onclick=function(e){e.preventDefault();b.hidden=false};
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(!a)return;var h=a.getAttribute('href')||'';if(h.indexOf('tel:')===0)ev('phone_click');else if(h.indexOf('wa.me')>-1)ev('whatsapp_click')});
+if(location.pathname==='/tesekkurler/'&&c==='1')ev('form_submit')})();"""
+if GTM_ID or ADS_ID:
+    TRK=TRKJS.replace('__G__',GTM_ID).replace('__A__',ADS_ID).replace('__L__',json.dumps(CONV))
+    CB='<div id="cb" class="cb" role="dialog" aria-label="Çerez tercihleri" hidden><p>Siteyi geliştirmek ve reklamlarımızın etkisini ölçmek için çerez kullanabiliriz. Ayrıntılar: <a href="/gizlilik/">Gizlilik ve Çerezler</a>.</p><div class="row"><button id="cy" class="btn" type="button">Kabul et</button><button id="cn" class="btn o" type="button">Reddet</button></div></div>'
+    CKL=' · <a href="#" id="ck">Çerez tercihleri</a>'
+else:
+    TRK=CB=CKL=''
 D=json.load(open('data/site.json',encoding='utf-8'));O='dist'
 T=str.maketrans("çğıöşüÇĞİÖŞÜ","cgiosuCGIOSU")
 slug=lambda s:re.sub(r'[^a-z0-9]+','-',s.translate(T).lower()).strip('-')
@@ -30,16 +54,17 @@ def about():
      'Çalışma saatlerimiz: '+D['hours_text']+'. Hizmet verdiğimiz ilçeler Hizmet Bölgeleri sayfasında listelenmiştir. Aramak veya WhatsApp’tan yazmak için aşağıdaki butonları kullanabilirsiniz.']
     return ''.join('<p>'+e(x)+'</p>' for x in P)
 pages=[]
-def page(url,title,desc,body,ld=''):
-    pages.append(url);nav=''.join(f'<a href="{u}"{" aria-current=page" if u==url else ""}>{n}</a>' for u,n in NAV)
+def page(url,title,desc,body,ld='',ni=0):
+    nim='<meta name="robots" content="noindex">' if ni else '';(pages.append(url) if not ni else 0);nav=''.join(f'<a href="{u}"{" aria-current=page" if u==url else ""}>{n}</a>' for u,n in NAV)
     h=f'''<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark">
-<title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{U}{url}">
+<title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{U}{url}">{nim}
 <meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{U}{url}">
 {ICON}<meta name="theme-color" content="#0b2a5b"><link rel="stylesheet" href="/style.css">{ld}</head><body><a class="skip" href="#i">İçeriğe geç</a>
 <header><div class="w hd"><a class="logo" href="/">{N}</a><button id="m" class="menu" aria-expanded="false" aria-controls="n" aria-label="Menü">☰</button><nav id="n">{nav}</nav><a class="btn call" href="tel:{tel}">Hemen Ara</a></div></header>
 <main id="i">{body}</main>{BR}
-<footer><div class="w"><p><b>{N}</b> · İzmir · <a href="tel:{tel}">{e(D["phone"])}</a></p><p>{e(D["hours_text"])}</p></div></footer>
+<footer><div class="w"><p><b>{N}</b> · İzmir · <a href="tel:{tel}">{e(D["phone"])}</a></p><p>{e(D["hours_text"])}</p><p><a href="/gizlilik/">Gizlilik ve Çerezler</a>{CKL}</p></div></footer>
 <div class="bar"><a class="btn" href="tel:{tel}">Ara</a><a class="btn wa" href="{WA}">WhatsApp</a></div>
+{CB}<script>{TRK}</script>
 <script>var m=document.getElementById('m'),n=document.getElementById('n');m.onclick=function(){{var o=n.classList.toggle('open');m.setAttribute('aria-expanded',o)}}</script></body></html>'''
     p=O+url;os.makedirs(p,exist_ok=True);open(p+'index.html','w',encoding='utf-8').write(h)
 shutil.rmtree(O,ignore_errors=True);os.makedirs(O)
@@ -63,19 +88,28 @@ def gal(n=None):
 page('/','İzmir Pimapen Tamiri ve PVC Kapı-Pencere Servisi | '+D['name'],'İzmir’de pimapen tamiri, montajı, sineklik ve cam balkon servisi. Net fiyat aralığı, yerinde servis. Hemen arayın veya WhatsApp’tan teklif isteyin.',
  hero('İzmir Pimapen Tamiri ve PVC Kapı-Pencere Servisi','Menteşe, kol, kilit ve conta arızalarında yerinde onarım. Fiyatı baştan söyleriz.',trust)+sec('Hizmetlerimiz',cards())+sec('Başlangıç fiyatları',prices(),'alt')+sec('Hizmet verdiğimiz ilçeler',tags())+sec('Önce / sonra',gal(2)+'<p><a class="btn o" href="/islerimiz/">Tüm işlerimizi gör</a></p>','alt')+sec('Sık sorulan sorular',faq(3)+'<p><a href="/sss/">Tüm soruları gör</a></p>'),ld)
 page('/islerimiz/','İşlerimiz: Önce ve Sonra Fotoğrafları | '+D['name'],'İzmir’de yaptığımız pimapen tamiri, montaj ve cam balkon işlerinden önce ve sonra fotoğrafları.',sec('İşlerimiz',gal()+cta()))
+PRIV=('<p><b>Veri sorumlusu:</b> '+e(D['name'])+'. İletişim: '+e(D['phone'])+' veya <a href="/iletisim/">İletişim</a> sayfamız.</p>'
+'<h3>Hangi verileri işliyoruz?</h3><p>İletişim formunu doldurduğunuzda yazdığınız ad, telefon numarası ve mesajınız. Bizi aradığınızda veya WhatsApp’tan yazdığınızda telefon numaranız ve mesajlarınız. Sitede dolaşırken, onay vermeniz hâlinde, ziyaretinize ilişkin teknik ve kullanım bilgileri (çerezler aracılığıyla).</p>'
+'<h3>Ne amaçla kullanıyoruz?</h3><p>Taleplerinize dönüş yapmak, teklif hazırlamak, hizmeti yürütmek ve sitemizin ile reklamlarımızın performansını ölçmek.</p>'
+'<h3>Çerezler</h3><p>Siteyi ziyaret ettiğinizde sizden bir tercih isteriz. <b>Kabul et</b> derseniz Google’ın ölçüm ve reklam etiketleri çalışır, <b>Reddet</b> derseniz bu etiketler yüklenmez. Tercihinizi sayfa altındaki “Çerez tercihleri” bağlantısından istediğiniz zaman değiştirebilirsiniz.</p>'
+'<h3>Verileriniz kimlerle paylaşılır?</h3><p>Sitenin barındırılması, form mesajlarının alınması ve ölçüm hizmetleri için altyapı sağlayıcılarıyla (ör. Netlify, Google) paylaşılabilir. Bu sağlayıcılar verileri yurt dışındaki sunucularda da işleyebilir.</p>'
+'<h3>Ne kadar saklıyoruz?</h3><p>Verilerinizi işleme amacının gerektirdiği süre boyunca ve yasal yükümlülüklerimiz kapsamında saklarız.</p>'
+'<h3>Haklarınız</h3><p>6698 sayılı KVKK’nın 11. maddesi uyarınca verilerinizin işlenip işlenmediğini öğrenme, düzeltilmesini veya silinmesini isteme gibi haklara sahipsiniz. Taleplerinizi telefonla veya iletişim sayfamızdan iletebilirsiniz.</p>')
+page('/gizlilik/','Gizlilik ve Çerezler | '+D['name'],'Kişisel verilerin işlenmesi ve çerez kullanımı hakkında bilgilendirme.',sec('Gizlilik ve Çerezler',PRIV))
+page('/tesekkurler/','Teşekkürler | '+D['name'],'Mesajınız alındı.',sec('Mesajınız alındı','<p>Mesajınız bize ulaştı. Çalışma saatlerimiz içinde size dönüş yapmaya çalışacağız. Acil durumda arayabilirsiniz.</p>'+cta()),ni=1)
 page('/hizmetler/','Hizmetler: Pimapen Tamiri, Montaj, Sineklik, Cam Balkon | '+D['name'],'Pimapen tamiri, montajı, sineklik, cam balkon ve PVC kapı işleri: ne yapıldığı ve ne zaman gerektiği.',
  sec('Hizmetler',''.join(f'<article id="{slug(s["title"])}" class="card big">{ic(s["icon"])}<h3>{e(s["title"])}</h3><p><b>Ne yapılır:</b> {e(s["desc"])}</p><p><b>Ne zaman gerekir:</b> {e(s["when"])}</p></article>' for s in D['services'])+cta()))
 page('/fiyatlar/','Pimapen Tamir Fiyatları | '+D['name'],'Pimapen tamiri, menteşe, kol, kilit, conta ve sineklik için başlangıç fiyatları. Kesin ücret yerinde belirlenir.',sec('Başlangıç fiyatları',prices()+cta()))
 page('/hizmet-bolgeleri/','Hizmet Bölgeleri: İzmir İlçeleri | '+D['name'],'Karabağlar, Buca, Bornova, Konak, Karşıyaka, Bayraklı, Çiğli ve Gaziemir’de pimapen servisi.',sec('Hizmet bölgeleri',tags()+cta()))
 page('/hakkimizda/','Hakkımızda | '+D['name'],D['name']+', İzmir’de pimapen tamiri ve montajı yapan yerinde servis ekibidir.',sec('Hakkımızda',about()+cta()))
 page('/sss/','Sık Sorulan Sorular | '+D['name'],'Pimapen tamiri fiyatı, keşif, aynı gün servis ve garanti hakkında sık sorulan sorular.',sec('Sık sorulan sorular',faq()+cta()),'<script type="application/ld+json">'+json.dumps({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":f['q'],"acceptedAnswer":{"@type":"Answer","text":f['a']}} for f in D['faq']]},ensure_ascii=False)+'</script>')
-page('/iletisim/','İletişim | '+D['name'],'Pimapen servisi için arayın veya WhatsApp’tan yazın. Çalışma saatleri ve hizmet bölgeleri.',sec('İletişim',f'<p>Telefon / WhatsApp: <a href="tel:{tel}"><b>{e(D["phone"])}</b></a></p><p>Çalışma saatleri: {e(D["hours_text"])}</p><p>Bölgeler: {", ".join(e(d["name"]) for d in D["districts"])}</p>'+cta()+'<form name="iletisim" method="POST" data-netlify="true"><label>Adınız<input name="ad" required autocomplete="name"></label><label>Telefon<input name="telefon" type="tel" required autocomplete="tel"></label><label>Mesajınız<textarea name="mesaj" rows="4" required></textarea></label><button class="btn" type="submit">Mesaj Gönder</button></form>'))
+page('/iletisim/','İletişim | '+D['name'],'Pimapen servisi için arayın veya WhatsApp’tan yazın. Çalışma saatleri ve hizmet bölgeleri.',sec('İletişim',f'<p>Telefon / WhatsApp: <a href="tel:{tel}"><b>{e(D["phone"])}</b></a></p><p>Çalışma saatleri: {e(D["hours_text"])}</p><p>Bölgeler: {", ".join(e(d["name"]) for d in D["districts"])}</p>'+cta()+'<form name="iletisim" method="POST" action="/tesekkurler/" data-netlify="true"><label>Adınız<input name="ad" required autocomplete="name"></label><label>Telefon<input name="telefon" type="tel" required autocomplete="tel"></label><label>Mesajınız<textarea name="mesaj" rows="4" required></textarea></label><button class="btn" type="submit">Mesaj Gönder</button></form>'))
 for d in D['districts']:
     n=d['name'];s=slug(n)
     page(f'/{s}-pimapen-tamiri/',f'{n} Pimapen Tamiri ve PVC Kapı-Pencere Servisi | {D["name"]}',f'{n}’de pimapen tamiri, montaj, sineklik ve cam balkon servisi. {d["note"][:90]}',
      hero(f'{n} Pimapen Tamiri',f'{n}’de PVC kapı-pencere arızalarına yerinde servis.')+sec(f'{n} için not',f'<p class="note">{e(d["note"])}</p>')+sec('Yaptığımız işler','<ul class="list">'+''.join(f'<li>{e(x["title"])}: {e(x["desc"])}</li>' for x in D['services'])+'</ul>'+cta(),'alt')+sec('Diğer ilçeler',tags()))
 open(O+'/sitemap.xml','w').write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{U}{u}</loc></url>' for u in pages)+'</urlset>')
 open(O+'/robots.txt','w').write(f'User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: {U}/sitemap.xml\n')
-X='.mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}.mt{display:flex;width:max-content;animation:mq 35s linear infinite}.mq:hover .mt{animation-play-state:paused}.hf{display:flex}.bi{flex:none;display:flex;align-items:center;justify-content:center;min-width:160px;height:72px;padding:0 24px;margin-right:16px;border:1px solid var(--line);border-radius:12px;background:var(--card)}.bi img{max-height:44px;max-width:140px;object-fit:contain}.bn{font-weight:800;font-size:18px;color:var(--mut);white-space:nowrap}@keyframes mq{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.mq{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.dup{display:none}}nav a{padding:12px 8px}.btn.o{background:transparent;color:var(--fg);border:2px solid currentColor}.btn.o:hover{border-color:var(--acc)}.gi{margin:0 0 24px}.gi img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block}.gi .grid2>div{position:relative}.lb{position:absolute;left:10px;top:10px;background:var(--hd);color:#fff;padding:2px 10px;border-radius:99px;font-size:14px}.gi figcaption{margin-top:8px;color:var(--mut);font-size:15px}'
+X='.cb{position:fixed;left:12px;right:12px;bottom:12px;z-index:20;max-width:560px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 8px 30px rgba(0,0,0,.25)}.cb[hidden]{display:none}.cb p{margin:0 0 10px;font-size:15px}@media(max-width:900px){.cb{bottom:78px}}.mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}.mt{display:flex;width:max-content;animation:mq 35s linear infinite}.mq:hover .mt{animation-play-state:paused}.hf{display:flex}.bi{flex:none;display:flex;align-items:center;justify-content:center;min-width:160px;height:72px;padding:0 24px;margin-right:16px;border:1px solid var(--line);border-radius:12px;background:var(--card)}.bi img{max-height:44px;max-width:140px;object-fit:contain}.bn{font-weight:800;font-size:18px;color:var(--mut);white-space:nowrap}@keyframes mq{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.mq{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.dup{display:none}}nav a{padding:12px 8px}.btn.o{background:transparent;color:var(--fg);border:2px solid currentColor}.btn.o:hover{border-color:var(--acc)}.gi{margin:0 0 24px}.gi img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;display:block}.gi .grid2>div{position:relative}.lb{position:absolute;left:10px;top:10px;background:var(--hd);color:#fff;padding:2px 10px;border-radius:99px;font-size:14px}.gi figcaption{margin-top:8px;color:var(--mut);font-size:15px}'
 open(O+'/style.css','w').write(open('style.css').read()+X)
 print(len(pages),'sayfa')
