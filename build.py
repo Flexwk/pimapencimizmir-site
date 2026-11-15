@@ -1,22 +1,23 @@
 import json,re,os,shutil,html,urllib.parse as up
 
 GTM_ID='GTM-M3PCGJ6F'   # Google Ads'in verdiği etiket kapsayıcısı
-ADS_ID=''               # AW-... ile başlayan kimlik. Doluysa GTM yerine bu kullanılır
-CONV={'phone_click':'','whatsapp_click':'','form_submit':''}   # her biri AW-xxx/yyy biçiminde
+ADS_ID='AW-18520695161' # Google Ads etiketi. Doluysa GTM yerine bu kullanılır
+CONV={'phone_click':'AW-18520695161/PJnMCO2r27YdEPnCrf9E','whatsapp_click':'AW-18520695161/gZsHCLqhqbUdEPnCrf9E','form_submit':'AW-18520695161/LVxZCJ-SorUdEPnCrf9E'}   # her biri AW-xxx/yyy biçiminde
 TRKJS="""(function(){var G='__G__',A='__A__',L=__L__,K='pz_consent',b=document.getElementById('cb');
+function gt(){window.dataLayer.push(arguments)}
 function g(){try{return localStorage.getItem(K)}catch(e){return null}}
 function st(v){try{localStorage.setItem(K,v)}catch(e){}}
 function load(){if(window.__t)return;window.__t=1;window.dataLayer=window.dataLayer||[];var s=document.createElement('script');s.async=1;
-if(A){window.gtag=function(){dataLayer.push(arguments)};s.src='https://www.googletagmanager.com/gtag/js?id='+A;gtag('js',new Date());gtag('config',A)}
-else{dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});s.src='https://www.googletagmanager.com/gtm.js?id='+G}
+if(A){window.gtag=gt;s.src='https://www.googletagmanager.com/gtag/js?id='+A;gt('js',new Date());gt('config',A)}
+else{window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});s.src='https://www.googletagmanager.com/gtm.js?id='+G}
 document.head.appendChild(s)}
-function ev(n){if(g()!=='1')return;window.dataLayer=window.dataLayer||[];dataLayer.push({event:n});if(A&&window.gtag&&L[n])gtag('event','conversion',{send_to:L[n]})}
+function ev(n){if(g()!=='1')return;window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:n});if(A&&L[n])gt('event','conversion',{send_to:L[n],value:1.0,currency:'TRY'})}
 var c=g();if(c==='1')load();else if(!c&&b)b.hidden=false;
-document.getElementById('cy').onclick=function(){st('1');b.hidden=true;load();if(location.pathname==='/tesekkurler/')ev('form_submit')};
+document.getElementById('cy').onclick=function(){st('1');b.hidden=true;load();if(location.pathname.indexOf('/tesekkurler')===0)ev('form_submit')};
 document.getElementById('cn').onclick=function(){st('0');b.hidden=true};
 var k=document.getElementById('ck');if(k)k.onclick=function(e){e.preventDefault();b.hidden=false};
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(!a)return;var h=a.getAttribute('href')||'';if(h.indexOf('tel:')===0)ev('phone_click');else if(h.indexOf('wa.me')>-1)ev('whatsapp_click')});
-if(location.pathname==='/tesekkurler/'&&c==='1')ev('form_submit')})();"""
+if(location.pathname.indexOf('/tesekkurler')===0&&c==='1')ev('form_submit')})();"""
 if GTM_ID or ADS_ID:
     TRK=TRKJS.replace('__G__',GTM_ID).replace('__A__',ADS_ID).replace('__L__',json.dumps(CONV))
     CB='<div id="cb" class="cb" role="dialog" aria-label="Çerez tercihleri" hidden><p>Siteyi geliştirmek ve reklamlarımızın etkisini ölçmek için çerez kullanabiliriz. Ayrıntılar: <a href="/gizlilik/">Gizlilik ve Çerezler</a>.</p><div class="row"><button id="cy" class="btn" type="button">Kabul et</button><button id="cn" class="btn o" type="button">Reddet</button></div></div>'
